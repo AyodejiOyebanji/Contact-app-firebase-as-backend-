@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap-5.1.1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./index.css">
+    <title>View more note</title>
+</head>
+<body class="bodyNote">
+  <button id="displayNote" class="showBtn btn btn-danger w-25 m-4 ">Show</button>
+    <div id="contactArea">
+       
+
+    </div>
+   
+
+
+
+
+
+
+    <script type="module">
+        
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import {getDatabase, set, ref, onValue} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAP2HEJyqQ3gF4YIGacKASBMUonhb1Zbgw",
+          authDomain: "contact-app-f8bff.firebaseapp.com",
+          projectId: "contact-app-f8bff",
+          storageBucket: "contact-app-f8bff.appspot.com",
+          messagingSenderId: "1055049484277",
+          appId: "1:1055049484277:web:2ec7030213e91e59d182bc"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db =getDatabase()
+
+        let nextValue=0
+        let nextRef= ref(db, "Contact")
+        let contactArray=[]
+        let getMyNote= JSON.parse(localStorage.firebase)
+        console.log(getMyNote);
+
+
+        onValue(nextRef, ((snapshot)=>{
+            contactArray= snapshot.val();
+            if(contactArray){
+                nextValue= contactArray.length 
+                
+                
+            }else{
+                nextValue=0
+            }
+        }))
+        
+        document.getElementById("displayNote").addEventListener('click',(()=>{
+          let contactHTML=""
+
+          for (let i = 0; i < getMyNote.length; i++) {
+            contactHTML+= `<div  class="m-5 bg-dark shadow " style="height: auto;width: 25%; dispaly:flex ;flex-wrap: wrap;
+" >
+       
+       <span class="text-light d-flex " style="font-size: 12px; ">Date:${getMyNote[i].time} </span>
+       <span class="text-light lead ">Notes</span>
+       <p class="text-light">Title:${getMyNote[i].title} </p>
+       <p class="text-light px-5"> ${getMyNote[i].msg}</p>
+
+  </div>
+`
+            console.log(getMyNote[i].msg)
+              
+          }
+          contactArea.innerHTML=contactHTML
+
+
+        }))
+
+    
+        
+        </script>
+
+    
+</body>
+</html>
