@@ -1,0 +1,69 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.navbar{
+    width: 100%;
+    height: 80px !important;
+}
+.sidenav{
+    height: 20px !important;
+}
+.addContactImg{
+    height: 30px;
+    width: 30px;
+}
+.addnewContBody{
+    background-image: url(./images/download\ \(18\).jfif);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.fill{
+    font-size: 30px;
+}
+.save {
+    font-weight: 700;
+
+}
+.nav2{
+
+    width: 100% ;
+    height: 20px;
+    background-color: red;
+}
+.details{
+    height: 200px;
+    width: 200px;
+    color: black !important;
+    
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.boxex{
+    display: flex;
+    justify-content: space-evenly;
+}
+.details2{
+    height: 200px;
+    width: 310px;
+    color: black !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.addContactBtn{
+    background-color: red;
+    font-weight: 500;
+}
+.addContactBtn:hover{
+    transform: scale(1.1);
+
+}
+.bodyNote{
+    background-image: url(./images/download\ \(18\).jfif);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.showBtn:hover{
+    transform: scale(1.1);
+    font-weight: 700;
+    
+}

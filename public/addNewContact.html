@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap-5.1.1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./index.css">
+    <title>Add Contact</title>
+</head>
+<body class="addnewContBody">
+    <div class="container">
+        <div class="row ">
+            <h3 class="text-light ">Create new contact</h3>
+            <div class="col-4 m-5  " style="background-color: white; width: 35%; height: 70vh;">
+                <h5 class="fill display-6">Fill Up your Contact Details</h5>
+                <p id="error"  class="alert alert-danger "></p>
+                <input type="text" class="form-control  my-3" id="firstName" placeholder="First name">
+                <input type="text" class="form-control my-3" id="lastName" placeholder="Last name">
+                <input type="text" class="form-control my-3" id="phone" placeholder="phone">
+                <input type="text" class="form-control my-3" id="email" placeholder="email">
+                <input type="text" class="form-control my-3" id="address" placeholder="Address"  >
+                 <input type="text" class="form-control my-3" id="icon" placeholder="icon">
+                 
+                    <button id="saveBtn" class=" save btn btn-dark  w-100">Save</button>
+
+
+                 
+                 
+
+                
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module">
+        error.style.display="none"
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import {getDatabase, set, ref, onValue} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAP2HEJyqQ3gF4YIGacKASBMUonhb1Zbgw",
+          authDomain: "contact-app-f8bff.firebaseapp.com",
+          projectId: "contact-app-f8bff",
+          storageBucket: "contact-app-f8bff.appspot.com",
+          messagingSenderId: "1055049484277",
+          appId: "1:1055049484277:web:2ec7030213e91e59d182bc"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db =getDatabase()
+
+        let nextValue=0
+        let nextRef= ref(db, "Contact")
+        let contactArray=[]
+
+        onValue(nextRef, ((snapshot)=>{
+            contactArray= snapshot.val();
+            if(contactArray){
+                nextValue= contactArray.length 
+            }else{
+                nextValue=0
+            }
+        }))
+        
+        
+
+        document.getElementById("saveBtn").addEventListener('click', (()=>{
+
+            if(firstName.value==""&& lastName.value==""&&phone.value==""&&email.value==""&&icon.value==""){
+            
+            error.innerText = "Fill up your details" 
+            error.style.display="block"
+                
+
+            } else if(firstName.value==""|| lastName.value==""||phone.value==""||email.value==""||icon.value==""){
+                error.innerText = "Fill up your missing details" 
+                error.style.display="block"
+           
+            } else{
+
+                
+                let contactObj={
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    phone_No: phone.value,
+                    email: email.value,
+                    icon:icon.value,
+                    address: address.value,
+                    userNote: []
+                }
+                let dbRef= ref(db, `Contact/${nextValue}`)
+                set(dbRef, contactObj)
+                error.innerText = "Saved" 
+                 error.style.display="block"
+
+                location.href="./index.html"
+                
+                
+            }
+        }))
+
+        
+      </script>
+    
+</body>
+</html>
